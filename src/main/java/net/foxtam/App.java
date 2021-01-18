@@ -2,9 +2,6 @@ package net.foxtam;
 
 import java.util.Scanner;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -14,7 +11,7 @@ public class App {
         new App().run(mapSize, seed);
     }
 
-    private void run(int mapSize, int seed) {
+    private void run(int mapSize, long seed) {
         UniverseMap universeMap = new UniverseMap(mapSize, seed);
         System.out.println(universeMap);
     }

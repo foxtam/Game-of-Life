@@ -6,12 +6,12 @@ public class UniverseMap {
 
     private final boolean[][] map;
 
-    public UniverseMap(int mapSize, int seed) {
+    public UniverseMap(int mapSize, long seed) {
         this.map = new boolean[mapSize][mapSize];
         randomFillMap(seed);
     }
 
-    private void randomFillMap(int seed) {
+    private void randomFillMap(long seed) {
         Random random = new Random(seed);
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
