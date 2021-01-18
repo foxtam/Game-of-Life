@@ -6,13 +6,19 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int mapSize = scanner.nextInt();
-        int seed = scanner.nextInt();
+        long seed = scanner.nextLong();
+        int generationNumber = scanner.nextInt();
 
-        new App().run(mapSize, seed);
+        new App().run(mapSize, seed, generationNumber);
     }
 
-    private void run(int mapSize, long seed) {
-        UniverseMap universeMap = new UniverseMap(mapSize, seed);
-        System.out.println(universeMap);
+    private void run(int mapSize, long seed, int generationNumber) {
+        Universe universe = new Universe(mapSize, seed);
+
+        for (int i = 0; i < generationNumber; i++) {
+            universe.nextGeneration();
+        }
+
+        System.out.println(universe);
     }
 }
