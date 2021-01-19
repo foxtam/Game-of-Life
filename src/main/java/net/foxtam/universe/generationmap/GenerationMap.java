@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
-    private final boolean[][] map;
+    private final Cell[][] map;
 
     private GenerationMap(int size, long seed) {
         this(size);
@@ -13,14 +13,14 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
     }
 
     private GenerationMap(int size) {
-        this.map = new boolean[size][size];
+        this.map = new Cell[size][size];
     }
 
     private void randomFillMap(long seed) {
         Random random = new Random(seed);
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                map[i][j] = random.nextBoolean();
+                map[i][j] = new Cell(new Position(i, j), random.nextBoolean());
             }
         }
     }
@@ -36,9 +36,9 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (boolean[] row : map) {
-            for (boolean cell : row) {
-                builder.append(cell ? 'O' : ' ');
+        for (Cell[] row : map) {
+            for (Cell cell : row) {
+                builder.append(cell.isAlive() ? 'O' : ' ');
             }
             builder.append('\n');
         }
@@ -58,7 +58,7 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
             @Override
             public Cell next() {
-                Cell cell = new Cell(i, j);
+                Cell cell = map[i][j];
                 j++;
                 if (j == size()) {
                     j = 0;
@@ -74,29 +74,25 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
     }
 
     public Cell getCell(Position position) {
-        return new Cell(position.getRow(), position.getColumn());
+        return map[position.getRow()][position.getColumn()];
     }
 
     public class Cell {
 
-        private final int homeRow;
-        private final int homeColumn;
+        private final Position position;
+        private boolean alive;
 
-        public Cell(int homeRow, int homeColumn) {
-            this.homeRow = homeRow;
-            this.homeColumn = homeColumn;
-        }
-
-        public boolean isAlive() {
-            return map[homeRow][homeColumn];
+        public Cell(Position position, boolean alive) {
+            this.position = position;
+            this.alive = alive;
         }
 
         public void die() {
-            map[homeRow][homeColumn] = false;
+            alive = false;
         }
 
         public void live() {
-            map[homeRow][homeColumn] = true;
+            alive = true;
         }
 
         public int countNeighbors() {
@@ -104,7 +100,7 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
                     if (i == 0 && j == 0) continue;
-                    if (map[Math.floorMod(homeRow + i, size())][Math.floorMod(homeColumn + j, size())]) {
+                    if (getCellRelative(i, j).isAlive()) {
                         count++;
                     }
                 }
@@ -112,8 +108,17 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
             return count;
         }
 
+        public boolean isAlive() {
+            return alive;
+        }
+
+        private Cell getCellRelative(int i, int j) {
+            return map[Math.floorMod(position.getRow() + i, size())]
+                    [Math.floorMod(position.getColumn() + j, size())];
+        }
+
         public Position getPosition() {
-            return new Position(homeRow, homeColumn);
+            return position;
         }
     }
 }
