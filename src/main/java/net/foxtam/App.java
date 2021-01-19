@@ -1,5 +1,7 @@
 package net.foxtam;
 
+import net.foxtam.universe.Universe;
+
 import java.util.Scanner;
 
 public class App {
@@ -18,7 +20,6 @@ public class App {
         for (int i = 0; i < generationNumber; i++) {
             universe.nextGeneration();
         }
-
         System.out.println(universe);
     }
 }

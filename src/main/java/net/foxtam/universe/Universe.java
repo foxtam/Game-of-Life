@@ -1,6 +1,6 @@
-package net.foxtam;
+package net.foxtam.universe;
 
-import java.util.Iterator;
+import net.foxtam.universe.generationmap.GenerationMap;
 
 public class Universe {
 
@@ -17,20 +17,14 @@ public class Universe {
 
     public void nextGeneration() {
         GenerationMap nextGen = GenerationMap.newEmpty(currentGen.size());
-        Iterator<GenerationMap.Cell> currentGenIterator = currentGen.iterator();
-        Iterator<GenerationMap.Cell> nextGenIterator = nextGen.iterator();
-
-        while (currentGenIterator.hasNext()) {
-            GenerationMap.Cell currentGenCell = currentGenIterator.next();
-            GenerationMap.Cell nextGenCell = nextGenIterator.next();
-
+        for (GenerationMap.Cell currentGenCell : currentGen) {
             int neighborNumber = currentGenCell.countNeighbors();
             if (currentGenCell.isAlive()) {
                 if (neighborNumber == 2 || neighborNumber == 3) {
-                    nextGenCell.live();
+                    nextGen.getCell(currentGenCell.getPosition()).live();
                 }
             } else if (neighborNumber == 3) {
-                nextGenCell.live();
+                nextGen.getCell(currentGenCell.getPosition()).live();
             }
         }
         currentGen = nextGen;

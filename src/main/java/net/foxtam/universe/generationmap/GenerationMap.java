@@ -1,4 +1,4 @@
-package net.foxtam;
+package net.foxtam.universe.generationmap;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -73,6 +73,10 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
         return map.length;
     }
 
+    public Cell getCell(Position position) {
+        return new Cell(position.getRow(), position.getColumn());
+    }
+
     public class Cell {
 
         private final int homeRow;
@@ -106,6 +110,10 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
                 }
             }
             return count;
+        }
+
+        public Position getPosition() {
+            return new Position(homeRow, homeColumn);
         }
     }
 }
