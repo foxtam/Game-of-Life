@@ -2,24 +2,47 @@ package net.foxtam;
 
 import net.foxtam.universe.Universe;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int mapSize = scanner.nextInt();
-        long seed = scanner.nextLong();
-        int generationNumber = scanner.nextInt();
 
-        new App().run(mapSize, seed, generationNumber);
+        new App().run(mapSize);
     }
 
-    private void run(int mapSize, long seed, int generationNumber) {
-        Universe universe = new Universe(mapSize, seed);
+    private void run(int mapSize) {
+        Universe universe = new Universe(mapSize);
 
-        for (int i = 0; i < generationNumber; i++) {
+        for (int i = 0; universe.countAlive() > 0; i++) {
+            clearScreen();
+            System.out.println("Generation #" + i);
+            System.out.println("Alive: " + universe.countAlive());
+            System.out.println(universe);
+            sleep();
             universe.nextGeneration();
         }
-        System.out.println(universe);
+    }
+
+    private void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

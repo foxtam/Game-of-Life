@@ -6,8 +6,8 @@ public class Universe {
 
     private GenerationMap currentGen;
 
-    public Universe(int mapSize, long seed) {
-        this.currentGen = GenerationMap.newRandom(mapSize, seed);
+    public Universe(int mapSize) {
+        this.currentGen = GenerationMap.newRandom(mapSize);
     }
 
     @Override
@@ -28,5 +28,15 @@ public class Universe {
             }
         }
         currentGen = nextGen;
+    }
+
+    public int countAlive() {
+        int count = 0;
+        for (GenerationMap.Cell cell : currentGen) {
+            if (cell.isAlive()) {
+                count++;
+            }
+        }
+        return count;
     }
 }

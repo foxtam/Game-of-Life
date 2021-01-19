@@ -14,6 +14,7 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
     private GenerationMap(int size) {
         this.map = new Cell[size][size];
+        fillEmptyMap();
     }
 
     private void randomFillMap(long seed) {
@@ -25,8 +26,16 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
         }
     }
 
-    public static GenerationMap newRandom(int mapSize, long seed) {
-        return new GenerationMap(mapSize, seed);
+    private void fillEmptyMap() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++) {
+                map[i][j] = new Cell(new Position(i, j), false);
+            }
+        }
+    }
+
+    public static GenerationMap newRandom(int mapSize) {
+        return new GenerationMap(mapSize, 0);
     }
 
     public static GenerationMap newEmpty(int size) {
