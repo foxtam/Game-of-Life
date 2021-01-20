@@ -2,6 +2,7 @@ package net.foxtam.universe.generationmap;
 
 import java.util.Iterator;
 import java.util.Random;
+import java.util.function.BooleanSupplier;
 
 public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
@@ -19,17 +20,17 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
     private void randomFillMap(long seed) {
         Random random = new Random(seed);
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map.length; j++) {
-                map[i][j] = new Cell(new Position(i, j), random.nextBoolean());
-            }
-        }
+        fillMapWithAlive(random::nextBoolean);
     }
 
     private void fillEmptyMap() {
+        fillMapWithAlive(() -> false);
+    }
+
+    private void fillMapWithAlive(BooleanSupplier supplier) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
-                map[i][j] = new Cell(new Position(i, j), false);
+                map[i][j] = new Cell(new Position(i, j), supplier.getAsBoolean());
             }
         }
     }
