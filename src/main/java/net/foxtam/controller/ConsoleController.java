@@ -1,6 +1,6 @@
 package net.foxtam.controller;
 
-import net.foxtam.model.universe.universe.Universe;
+import net.foxtam.model.universe.Universe;
 
 import java.io.IOException;
 
