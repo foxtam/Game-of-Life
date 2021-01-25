@@ -33,7 +33,7 @@ public class WindowController implements Controller {
 
     private void sleep() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class GameOfLifeFrame extends JFrame {
         super("Game of Life");
         this.gridSideSize = gridSideSize;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(480, 320);
+        setSize(800, 800);
         setLocationRelativeTo(null);
 
         initComponents();
