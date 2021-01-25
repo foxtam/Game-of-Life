@@ -40,4 +40,9 @@ public class BaseUniverse implements Universe {
                 .reduce(Integer::sum)
                 .orElse(0);
     }
+
+    @Override
+    public int getSideSize() {
+        return currentGen.size();
+    }
 }
