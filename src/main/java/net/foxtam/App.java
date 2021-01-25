@@ -12,8 +12,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         int mapSize = scanner.nextInt();
 
-        Controller controller = ConsoleController.make();
-        Universe universe = BaseUniverse.withSize(mapSize);
+        Controller controller = new ConsoleController();
+        Universe universe = new BaseUniverse(mapSize);
         controller.run(universe);
     }
 }

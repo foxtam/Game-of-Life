@@ -8,11 +8,7 @@ public class BaseUniverse implements Universe {
 
     private GenerationMap currentGen;
 
-    public static Universe withSize(int size) {
-        return new BaseUniverse(size);
-    }
-
-    private BaseUniverse(int size) {
+    public BaseUniverse(int size) {
         this.currentGen = GenerationMap.newRandom(size);
     }
 
