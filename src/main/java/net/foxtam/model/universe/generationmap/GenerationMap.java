@@ -1,4 +1,4 @@
-package net.foxtam.universe.generationmap;
+package net.foxtam.model.universe.generationmap;
 
 import java.util.Iterator;
 import java.util.Random;

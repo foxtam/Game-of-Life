@@ -1,4 +1,4 @@
-package net.foxtam.universe.generationmap;
+package net.foxtam.model.universe.generationmap;
 
 public class Position {
     private final int row;

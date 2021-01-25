@@ -1,12 +1,14 @@
-package net.foxtam.universe;
+package net.foxtam.model.universe;
 
-import net.foxtam.universe.generationmap.GenerationMap;
+import net.foxtam.model.universe.generationmap.GenerationMap;
 
-public class Universe {
+import java.util.stream.StreamSupport;
+
+public class BaseUniverse implements Universe {
 
     private GenerationMap currentGen;
 
-    public Universe(int mapSize) {
+    public BaseUniverse(int mapSize) {
         this.currentGen = GenerationMap.newRandom(mapSize);
     }
 
@@ -15,6 +17,7 @@ public class Universe {
         return currentGen.toString();
     }
 
+    @Override
     public void nextGeneration() {
         GenerationMap nextGen = GenerationMap.newEmpty(currentGen.size());
         for (GenerationMap.Cell currentGenCell : currentGen) {
@@ -30,13 +33,11 @@ public class Universe {
         currentGen = nextGen;
     }
 
+    @Override
     public int countAlive() {
-        int count = 0;
-        for (GenerationMap.Cell cell : currentGen) {
-            if (cell.isAlive()) {
-                count++;
-            }
-        }
-        return count;
+        return StreamSupport.stream(currentGen.spliterator(), false)
+                .map(cell -> cell.isAlive() ? 1 : 0)
+                .reduce(Integer::sum)
+                .orElse(0);
     }
 }
