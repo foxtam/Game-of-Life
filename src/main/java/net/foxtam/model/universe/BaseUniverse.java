@@ -19,7 +19,7 @@ public class BaseUniverse implements Universe {
 
     @Override
     public void nextGeneration() {
-        GenerationMap nextGen = GenerationMap.newEmpty(currentGen.size());
+        GenerationMap nextGen = GenerationMap.newEmpty(currentGen.sideSize());
         for (GenerationMap.Cell currentGenCell : currentGen) {
             int neighborNumber = currentGenCell.countNeighbors();
             if (currentGenCell.isAlive()) {
@@ -43,6 +43,11 @@ public class BaseUniverse implements Universe {
 
     @Override
     public int getSideSize() {
-        return currentGen.size();
+        return currentGen.sideSize();
+    }
+
+    @Override
+    public GenerationMap getGenerationMap() {
+        return currentGen;
     }
 }

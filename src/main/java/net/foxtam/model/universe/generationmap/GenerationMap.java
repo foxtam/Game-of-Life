@@ -63,14 +63,14 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
 
             @Override
             public boolean hasNext() {
-                return i < size() && j < size();
+                return i < sideSize() && j < sideSize();
             }
 
             @Override
             public Cell next() {
                 Cell cell = map[i][j];
                 j++;
-                if (j == size()) {
+                if (j == sideSize()) {
                     j = 0;
                     i++;
                 }
@@ -79,7 +79,7 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
         };
     }
 
-    public int size() {
+    public int sideSize() {
         return map.length;
     }
 
@@ -123,8 +123,8 @@ public class GenerationMap implements Iterable<GenerationMap.Cell> {
         }
 
         private Cell getCellRelative(int i, int j) {
-            return map[Math.floorMod(position.getRow() + i, size())]
-                    [Math.floorMod(position.getColumn() + j, size())];
+            return map[Math.floorMod(position.getRow() + i, sideSize())]
+                    [Math.floorMod(position.getColumn() + j, sideSize())];
         }
 
         public Position getPosition() {
