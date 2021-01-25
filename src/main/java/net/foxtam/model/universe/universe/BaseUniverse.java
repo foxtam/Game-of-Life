@@ -1,4 +1,4 @@
-package net.foxtam.model.universe;
+package net.foxtam.model.universe.universe;
 
 import net.foxtam.model.universe.generationmap.GenerationMap;
 
