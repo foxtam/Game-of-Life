@@ -3,6 +3,7 @@ package net.foxtam;
 import net.foxtam.controller.ConsoleController;
 import net.foxtam.controller.Controller;
 import net.foxtam.model.universe.universe.BaseUniverse;
+import net.foxtam.model.universe.universe.Universe;
 
 import java.util.Scanner;
 
@@ -11,7 +12,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         int mapSize = scanner.nextInt();
 
-        Controller controller = new ConsoleController();
-        controller.run(new BaseUniverse(mapSize));
+        Controller controller = ConsoleController.make();
+        Universe universe = BaseUniverse.withSize(mapSize);
+        controller.run(universe);
     }
 }

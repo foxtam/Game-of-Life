@@ -5,6 +5,14 @@ import net.foxtam.model.universe.universe.Universe;
 import java.io.IOException;
 
 public class ConsoleController implements Controller {
+
+    public static Controller make() {
+        return new ConsoleController();
+    }
+
+    private ConsoleController() {
+    }
+
     @Override
     public void run(Universe universe) {
         for (int i = 0; universe.countAlive() > 0; i++) {
