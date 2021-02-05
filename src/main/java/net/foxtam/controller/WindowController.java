@@ -4,8 +4,6 @@ import net.foxtam.model.universe.Universe;
 import net.foxtam.model.universe.generationmap.GenerationMap;
 import net.foxtam.view.window.GameOfLifeFrame;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
